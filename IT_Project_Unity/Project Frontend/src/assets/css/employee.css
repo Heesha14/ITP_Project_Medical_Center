@@ -32,6 +32,16 @@
     display : none !important;
 }
 
+.list-group-mine .list-group-item {
+    background-color: #202020;
+    border-top: 1px solid #000000;
+    border-left-color: #fff;
+    border-right-color: #fff;
+}
+
+.list-group-mine .list-group-item:hover {
+    background-color: #200000 ;
+}
 
 
 
