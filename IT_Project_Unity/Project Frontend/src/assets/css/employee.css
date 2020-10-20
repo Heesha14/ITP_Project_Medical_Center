@@ -1,0 +1,48 @@
+.password-icon {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#viewlabels {
+    color : floralwhite;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
+#viewlabels1 {
+    color : floralwhite;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+
+
+#showlabels {
+    color : navajowhite;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
+#labellll{
+    color : red;
+}
+
+.print-table{
+    display : none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
