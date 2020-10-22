@@ -87,6 +87,11 @@ export class ListEmployee extends Component {
     //
     // }
 
+    cancel(){
+        this.props.history.push('/admin/list-upload/');
+    }
+
+
     render() {
         return (
             <div className="content">
@@ -94,11 +99,22 @@ export class ListEmployee extends Component {
                     <BreadcrumbItem><a href="/admin/dashboard#">Dashboard</a></BreadcrumbItem>
                     <BreadcrumbItem active>Employee List</BreadcrumbItem>
                 </Breadcrumb>
+
                 <div>
                     <br></br>
                     <div className = "card col-md-15 offset-md-0">
                         <br/>
                         <h3 className = "text-center"> List of Employees</h3>
+
+
+                        <div className="form-group">
+                            <button
+                                type="button"
+                                className="btn btn-danger m-3 btn-simple"  onClick={this.cancel.bind(this)}>
+
+                                Employee Details Uploads
+                            </button>
+                    </div>
 
                         <Col md="20">
                             <Card className="card-user">

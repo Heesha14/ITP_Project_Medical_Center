@@ -16,6 +16,7 @@ import {
     Row, UncontrolledDropdown
 } from "reactstrap";
 import {ListEmployeeComponent} from "./ListEmployee";
+import UploadService from "../Services/upload-files.service";
 
 
 function validate(firstname,lastname, email,designation,username, password) {
@@ -84,6 +85,11 @@ class Employee extends React.Component {
             buttonDisabled:true,
             buttonDisabled1:true,
             errors: [],
+            selectedFiles: undefined,
+            currentFile: undefined,
+            progress: 0,
+            message: "",
+            fileInfos: [],
             formErrors: {
                 firstname: "",
                 lastname: "",
@@ -112,6 +118,8 @@ class Employee extends React.Component {
         //this.enableField = this.enableField.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this)
         this.baseState = this.state;
+        this.selectFile = this.selectFile.bind(this);
+        this.upload = this.upload.bind(this);
 
     }
 
@@ -294,10 +302,70 @@ class Employee extends React.Component {
     };
 
 
+
+    componentDidMount() {
+        UploadService.getFiles().then((response) => {
+            this.setState({
+                fileInfos: response.data,
+            });
+        });
+    }
+
+    selectFile(event) {
+        this.setState({
+            selectedFiles: event.target.files,
+        });
+    }
+
+
+    upload() {
+        let currentFile = this.state.selectedFiles[0];
+
+        this.setState({
+            progress: 0,
+            currentFile: currentFile,
+        });
+
+        UploadService.upload(currentFile, (event) => {
+            this.setState({
+                progress: Math.round((100 * event.loaded) / event.total),
+            });
+        })
+            .then((response) => {
+                this.setState({
+                    message: response.data.message,
+                });
+                return UploadService.getFiles();
+            })
+            .then((files) => {
+                this.setState({
+                    fileInfos: files.data,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    progress: 0,
+                    message: "Could not upload the file!",
+                    currentFile: undefined,
+                });
+            });
+
+        this.setState({
+            selectedFiles: undefined,
+        });
+    }
+
     render() {
         const { formErrors } = this.state;
         const { isPasswordShown } = this.state;
         const { errors } = this.state;
+        const {
+            selectedFiles,
+            currentFile,
+            progress,
+            message,
+            fileInfos,
+        } = this.state
         return (
 
             <div className="content">
@@ -561,21 +629,49 @@ class Employee extends React.Component {
                                     Treat Employees Like They Make A Difference And They Will
                                 </div>
                             </CardBody>
+
+
                             <CardFooter>
-                                <UncontrolledDropdown group direction="up">
-                                    <DropdownToggle caret>
-                                        Dashboard
-                                    </DropdownToggle>
-                                    <DropdownMenu>
-                                        <DropdownItem><a href="/admin/dashboard#">Dashboard</a></DropdownItem>
-                                        <DropdownItem><a href="/admin/employees">Employee List</a></DropdownItem>
-                                        <DropdownItem><a href="/admin/salary">Salary</a></DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
+
+
+
+                                {currentFile && (
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar progress-bar-info progress-bar-striped"
+                                            role="progressbar"
+                                            aria-valuenow={progress}
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            style={{ width: progress + "%" }}
+                                        >
+                                            {progress}%
+                                        </div>
+                                    </div>
+                                )}
+
+                                <label className="btn btn-default">
+                                    <input type="file" onChange={this.selectFile} />
+                                </label>
+
+                                <button
+                                    className="btn btn-success"
+                                    disabled={!selectedFiles}
+                                    onClick={this.upload}
+                                >
+                                    Upload
+                                </button>
+
+                                <div className="alert alert-light" role="alert">
+                                    {message}
+                                </div>
+
+
 
                             </CardFooter>
                         </Card>
                     </Col>
+
                 </Row>
 
             </div>

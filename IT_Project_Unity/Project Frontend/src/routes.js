@@ -35,6 +35,8 @@ import ListSalary from "./components/Employee/ListSalary";
 import Reports from "./components/Employee/Reports";
 import {SearchSalaryById} from "./components/Employee/SearchSalaryById";
 import UpdateSalary from "./components/Employee/UpdateSalary";
+import UploadFiles from "./components/Employee/upload-files.component";
+import ListFiles from "./components/Employee/list-of-uploads";
 
 var routes = [
   {
@@ -139,10 +141,19 @@ var routes = [
     component: UpdateSalary,
     invisible : true,
     layout: "/admin"
+  },
+  {
+    path: "/upload",
+    rtlName: "ار تي ال",
+    component: UploadFiles,
+    layout: "/admin"
+  },
+  {
+    path: "/list-upload",
+    rtlName: "ار تي ال",
+    component: ListFiles,
+    layout: "/admin"
   }
-
-
-
 
 ];
 export default routes;
