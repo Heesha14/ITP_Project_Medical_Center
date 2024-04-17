@@ -11,12 +11,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: List files in project directory
-      run: ls -al
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
       with:
         node-version: '16.x'
-        cache: 'npm'      
+        cache: 'npm'
+    - name: Navigate to project directory
+      run: cd IT_Project_Unity/Project\ FrontEnd && ls -al        
     - run: cd 'IT_Project_Unity/Project FrontEnd' && npm ci
     - run: cd 'IT_Project_Unity/Project FrontEnd' && npm run build --if-present
