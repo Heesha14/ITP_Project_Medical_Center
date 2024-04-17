@@ -12,7 +12,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Navigate to project directory
-      run: cd IT_Project_Unity/Project\ FrontEnd && ls -al      
+      run: cd IT_Project_Unity && ls -al      
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
       with:
