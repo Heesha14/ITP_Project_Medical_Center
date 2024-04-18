@@ -12,6 +12,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Navigate to project directory
-      run: cd IT_Project_Unity/FrontEnd && ls -al      
+      run: cd IT_Project_Unity/FrontEnd && ls -al 
+    - name: Setup Node.js and Python      
+      env:
+        CI: true
+        PATH: ${{ runner.tool_cache }}/python/2.7.17/x64:${{ env.PATH }}      
     - run: cd IT_Project_Unity/FrontEnd && npm install
     - run: cd IT_Project_Unity/FrontEnd && npm run build --if-present
