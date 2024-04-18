@@ -13,7 +13,8 @@ jobs:
       uses: actions/checkout@v1
     - name: Navigate to project directory
       run: cd IT_Project_Unity/FrontEnd && ls -al 
-    - name: Setup Node.js and Python      
+    - name: Setup Node.js and Python   
+      uses: actions/setup-node@v3
       env:
         CI: true
         PATH: ${{ runner.tool_cache }}/python/2.7.17/x64:${{ env.PATH }}      
